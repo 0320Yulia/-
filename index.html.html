@@ -1,0 +1,748 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>泊愈酒店前厅部 SOP培训学习平台</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: "Microsoft Yahei", system-ui, sans-serif;
+        }
+        :root {
+            --main-bg:#f0f9f4;
+            --primary:#489c79;
+            --primary-dark:#2e7d5e;
+            --card-bg:#ffffff;
+            --text:#2c3e36;
+            --border:#c8e6d8;
+        }
+        body {
+            background-color: var(--main-bg);
+            color: var(--text);
+            line-height:1.75;
+            padding-bottom:60px;
+        }
+        header {
+            background: var(--primary);
+            color:#fff;
+            padding:28px 20px;
+            text-align:center;
+        }
+        header h1 {
+            font-size:26px;
+            margin-bottom:6px;
+        }
+        header p {
+            opacity:0.9;
+        }
+        .nav-bar {
+            background:#fff;
+            border-bottom:1px solid var(--border);
+            position:sticky;
+            top:0;
+            z-index:99;
+        }
+        .nav-wrap {
+            max-width:1200px;
+            margin:0 auto;
+            display:flex;
+            flex-wrap:wrap;
+            gap:4px;
+            padding:12px 16px;
+        }
+        .nav-btn {
+            padding:8px 14px;
+            background:var(--main-bg);
+            border:1px solid var(--border);
+            border-radius:6px;
+            cursor:pointer;
+            font-size:14px;
+            transition:0.2s;
+        }
+        .nav-btn.active {
+            background:var(--primary);
+            color:#fff;
+            border-color:var(--primary);
+        }
+        .container {
+            max-width:1200px;
+            margin:24px auto;
+            padding:0 18px;
+        }
+        .search-box{
+            background:var(--card-bg);
+            padding:18px;
+            border-radius:10px;
+            box-shadow:0 2px 8px rgba(72,156,121,0.12);
+            margin-bottom:20px;
+        }
+        #searchInput{
+            width:100%;
+            border:1px solid var(--border);
+            padding:12px 16px;
+            border-radius:8px;
+            font-size:16px;
+            background:#f8fcfb;
+        }
+        .tool-bar {
+            display:flex;
+            gap:12px;
+            flex-wrap:wrap;
+            margin-bottom:24px;
+        }
+        .tool-btn {
+            padding:10px 18px;
+            background:var(--primary);
+            color:white;
+            border:none;
+            border-radius:7px;
+            cursor:pointer;
+            font-size:15px;
+        }
+        .tool-btn:hover {
+            background:var(--primary-dark);
+        }
+        .sop-wrap {
+            background:var(--card-bg);
+            border-radius:12px;
+            padding:24px;
+            box-shadow:0 2px 10px rgba(72,156,121,0.1);
+        }
+        .sop-title {
+            font-size:20px;
+            color:var(--primary-dark);
+            margin-bottom:16px;
+            padding-bottom:10px;
+            border-bottom:1px solid var(--border);
+        }
+        .sop-content {
+            font-size:15px;
+        }
+        .sop-content table{
+            width:100%;
+            border-collapse: collapse;
+            margin:14px 0;
+        }
+        .sop-content th,.sop-content td{
+            border:1px solid var(--border);
+            padding:9px 12px;
+        }
+        .sop-content th{
+            background:#e8f5ef;
+        }
+        .sop-content h3{
+            margin:16px 0 8px;
+            color:var(--primary-dark);
+        }
+        .sop-content ul{
+            padding-left:22px;
+            margin:8px 0;
+        }
+        .link-item{
+            color:#2e7d5e;
+            cursor:pointer;
+            text-decoration:underline;
+        }
+        .exam-wrap{
+            background:var(--card-bg);
+            border-radius:12px;
+            padding:24px;
+            margin-top:20px;
+            box-shadow:0 2px 10px rgba(72,156,121,0.1);
+        }
+        .question-item{
+            padding:14px;
+            border:1px solid var(--border);
+            border-radius:8px;
+            margin-bottom:12px;
+        }
+        .q-title{
+            font-weight:bold;
+            margin-bottom:8px;
+        }
+        .opt-item{
+            margin:4px 0;
+        }
+        .answer-hint{
+            margin-top:8px;
+            color:#2e7d5e;
+            font-size:14px;
+            display:none;
+        }
+        @media print {
+            header,.nav-bar,.tool-bar,.search-box,.exam-wrap {display:none !important;}
+            .sop-wrap {box-shadow:none;border:0;}
+        }
+        .modal{
+            position:fixed;
+            inset:0;
+            background:rgba(0,0,0,0.45);
+            display:none;
+            z-index:999;
+            align-items:center;
+            justify-content:center;
+            padding:20px;
+        }
+        .modal-box{
+            background:white;
+            width:100%;
+            max-width:850px;
+            max-height:85vh;
+            overflow:auto;
+            border-radius:10px;
+            padding:22px;
+        }
+        .modal-head{
+            display:flex;
+            justify-content:space-between;
+            margin-bottom:14px;
+        }
+        .close-modal{
+            cursor:pointer;
+            font-size:22px;
+        }
+        #previewText{
+            white-space:pre-wrap;
+            font-size:14px;
+            line-height:1.6;
+        }
+        footer{
+            margin-top:40px;
+            text-align:center;
+            color:#557768;
+            font-size:14px;
+        }
+        @media(max-width:720px){
+            header h1{font-size:22px;}
+            .sop-wrap{padding:16px;}
+        }
+    </style>
+</head>
+<body>
+<header>
+    <h1>泊愈酒店前厅部 SOP培训学习平台</h1>
+    <p>新员工培训｜月度考核｜SOP文档导出打印PDF</p>
+</header>
+
+<div class="nav-bar">
+    <div class="nav-wrap">
+        <button class="nav-btn active" data-target="home">首页学习目录</button>
+        <button class="nav-btn" data-target="sop">SOP标准库</button>
+        <button class="nav-btn" data-target="exam">月度50题考核练习</button>
+    </div>
+</div>
+
+<div class="container">
+    <div class="search-box">
+        <input id="searchInput" placeholder="🔍搜索SOP知识点：报价、叫醒、催退、遗留物品、入住退房..." oninput="globalSearch()">
+    </div>
+
+    <div class="tool-bar">
+        <button class="tool-btn" onclick="exportSopPreview()">📄导出当前SOP(打印另存PDF)</button>
+        <button class="tool-btn" onclick="window.print()">🖨直接打印页面</button>
+    </div>
+
+    <div id="page-home">
+        <div class="sop-wrap">
+            <h2 class="sop-title">📚前厅SOP学习顺序（新员工培训路径｜点击直接跳转章节）</h2>
+            <div class="sop-content">
+                <ol>
+                    <li><span class="link-item" data-sop="tel">1、前厅电话接听操作SOP</span> ——基础接打电话规范，前厅基本功</li>
+                    <li><span class="link-item" data-sop="preArrival">2、预抵电话流程SOP</span> ——客人到店前确认，前置服务</li>
+                    <li><span class="link-item" data-sop="checkIn">3、前厅入住操作SOP</span> ——客人到店办理入住，PMS系统+服务话术</li>
+                    <li><span class="link-item" data-sop="showRoom">4、前厅带客看房操作SOP</span> ——无预订散客看房体验式营销</li>
+                    <li><span class="link-item" data-sop="priceSale">5、报价留客流程方案</span> ——客人议价、报价策略、守住价格底线</li>
+                    <li><span class="link-item" data-sop="wakeUp">6、叫醒服务流程SOP</span> ——住店客人叫醒人工/上门SOP、红线禁忌</li>
+                    <li><span class="link-item" data-sop="remindCheckout">7、前厅催退电话操作SOP</span> ——退房前提醒、延时费沟通话术</li>
+                    <li><span class="link-item" data-sop="checkOut">8、前厅退房操作SOP</span> ——PMS结账退房，区分优质/提防客人话术</li>
+                    <li><span class="link-item" data-sop="lostItem">9、前厅遗留物品处理SOP</span> ——客人丢东西，登记保管邮寄规范</li>
+                </ol>
+                <br>
+                <p>💡操作说明：点击上面蓝色带下划线条目，自动切换SOP页面并打开对应文档；</p>
+                <p>💡导出PDF：打开对应SOP，点【导出当前SOP】预览，复制文本或者点直接打印，打印机选择另存为PDF即可保存文档。</p>
+                <p>💡搜索框：输入关键词快速定位SOP章节内容。</p>
+            </div>
+        </div>
+    </div>
+
+    <div id="page-sop" style="display:none;">
+        <div class="sop-wrap">
+            <select id="sopSelect" style="padding:8px 12px;min-width:340px;margin-bottom:16px;font-size:15px;" onchange="renderSop()">
+                <option value="tel">1、前厅电话接听操作SOP</option>
+                <option value="preArrival">2、预抵电话流程SOP</option>
+                <option value="checkIn">3、前厅入住操作SOP</option>
+                <option value="showRoom">4、前厅带客看房操作SOP</option>
+                <option value="priceSale">5、报价留客流程方案</option>
+                <option value="wakeUp">6、叫醒服务流程SOP</option>
+                <option value="remindCheckout">7、前厅催退电话操作SOP</option>
+                <option value="checkOut">8、前厅退房操作SOP</option>
+                <option value="lostItem">9、前厅遗留物品处理SOP</option>
+            </select>
+            <div id="sopRender" class="sop-content"></div>
+        </div>
+    </div>
+
+    <div id="page-exam" style="display:none;">
+        <div class="exam-wrap">
+            <h2>📝泊愈前厅月度考核模拟题库（共50题：单选30｜多选12｜判断8）</h2>
+            <p style="margin-bottom:12px;">点击【显示答案】查看正确选项与解析；支持打印整套试卷。</p>
+            <div id="examRender"></div>
+        </div>
+    </div>
+</div>
+
+<div class="modal" id="exportModal">
+    <div class="modal-box">
+        <div class="modal-head">
+            <h3>SOP文档预览（可复制或打印另存PDF）</h3>
+            <span class="close-modal" onclick="closeModal()">×</span>
+        </div>
+        <div id="previewText"></div>
+        <div style="margin-top:12px;">
+            <button class="tool-btn" onclick="copyPreview()">复制全部文本</button>
+            <button class="tool-btn" onclick="window.print()">打印另存PDF</button>
+        </div>
+    </div>
+</div>
+
+<footer>泊愈酒店前厅培训平台｜内部学习资料，禁止外传</footer>
+
+<script>
+const sopData = {
+tel:{
+title:"前厅电话接听操作SOP手册",
+content:`
+# 前厅电话接听操作SOP手册
+文档编号：无，版本V1.0，生效2026‑08‑14
+适用：前厅全体员工
+
+## 一、接听三大原则
+1. 三声原则：电话铃响3声内必须接听。超过3声需先致歉。
+2. 微笑传递：接电话保持微笑，声音更亲切。
+3. 全程记录：来电全部记录《电话记录本》或者PMS备注。
+
+> 七字流程口诀：接→听→记→办→复→挂→存
+
+## 二、标准开场白
+08:00‑11:00：早上好，泊愈酒店，请问有什么可以帮您？
+11:00‑14:00：中午好，泊愈酒店，请问有什么可以帮您？
+14:00‑18:00：下午好，泊愈酒店，请问有什么可以帮您？
+18:00‑22:00：晚上好，泊愈酒店，请问有什么可以帮您？
+22:00‑08:00：您好，泊愈酒店，请问有什么可以帮您？
+
+> 超时接听：非常抱歉让您久等了，请问有什么可以帮您？
+
+## 三、来电分类处理
+1）预订类：询问入住日期、房型、人数，留姓名手机号复述确认。
+2）咨询价格：先问入住日期，由高到低报价。
+3）外线找客人：只帮转接，严禁透露房号；无人接听提供留言。
+4）投诉来电：先安抚道歉，记录，上报值班经理，不私自承诺补偿。
+
+## 🔒隐私红线
+任何情况不得向第三方泄露住客房号、姓名、是否在店。
+
+## 挂断规范
+1. 等待客人先挂断，轻放话筒，禁止摔听筒。
+2. 挂断2分钟内完成登记归档。
+
+## 常用速查话术
+- 问路：报地址+地铁站出口+地标，可短信发送地址。
+- 投诉：非常抱歉给您带来不好体验，请您告知房号，马上安排处理。
+- 结束语：感谢您的来电，祝您生活愉快，再见！
+`},
+preArrival:{
+title:"预抵电话流程SOP",
+content:`
+# 预抵电话流程SOP
+适用岗位：前厅接待；拨打时机：客人到店前1‑3小时；远程客人提前1天。
+
+## 目的
+提前确认客人需求，减少前台排队，提前排房，规避服务失误。
+
+## 拨打前准备
+1.核对PMS订单：姓名、房型、预抵时间、特殊需求；
+2.确认房态，房间是否可用；
+3.调整状态，微笑通话。
+
+## 标准通话流程
+1.开场确认身份：您好，这里是泊愈酒店前台，请问是X先生/女士吗？
+2.确认预订：看到您预订今晚XX房型；
+3.确认预计到店时间；
+4.询问是否自驾，告知免费停车；
+5.确认房间偏好：床型、楼层、朝向、安静、老人孕妇特殊需求；
+6.全部信息录入PMS备注；特殊需求同步客房部；
+7.结束语：期待您到来，祝您一路顺风！
+
+## 关键确认三项：
+①预计到店时间ETA；②是否开车停车；③房间特殊偏好。
+
+## 特殊场景
+1.无人接听：最多拨打3次，发短信通知，PMS备注。
+2.客人时间变更：系统修改订单，复述确认同步客房。
+3.房间未打扫好：安抚客人，建议寄存行李，告知房间就绪时间。
+
+## 记录交接内容
+客人姓名、订单号、预计到店、停车需求、房型偏好、待跟进事项。
+`},
+checkIn:{
+title:"前厅入住操作SOP手册",
+content:`
+# 前厅入住操作SOP手册
+版本V1.0｜系统：金天鹅云PMS
+> 两大板块：PMS系统操作 + 前台对客服务话术
+
+## PMS办理入住步骤
+1.打开订单列表，筛选【未入住】今日预抵订单；
+2.查找预订单（姓名/手机号/订单号）；
+3.执行排房，确认房型、房价、早餐；
+4.选择具体可用房号，保存完成排房；
+5.客人到店后批量入住，刷身份证实名登记；
+6.录入客人手机号，同住人全部登记证件。
+
+## 对客服务流程
+1.微笑问候：您好，欢迎光临泊愈酒店，请问有预订吗？
+2.有预订：询问预订姓名，请出示身份证。
+3.核对房型信息；房间缺陷（无窗、靠马路噪音）必须主动告知客人确认。
+4.留存客人手机号码录入系统。
+5.告知：退房12点、WiFi密码、管家微信、早餐时间地点；访客需要前台登记。
+6.制房卡，引领至电梯，祝您入住愉快！
+
+## ⚠️强制红线
+1.全部入住人必须实名登记，公安要求，严禁漏登；
+2.有噪音、无窗房间必须提前告知客人；
+3.必须留存客人手机号；
+4.访客必须到前台登记身份证件。
+
+## 常用速查卡
+> 请问预订叫什么名字？麻烦出示身份证。
+> 这个房间靠马路会有点吵，您看可以接受吗？
+> 退房时间中午12点，超时会收取延时费。
+> 有任何问题联系管家微信，祝您入住愉快！
+`},
+showRoom:{
+title:"前厅带客看房操作SOP",
+content:`
+# 前厅带客看房SOP
+文档编号：SOP‑FD‑SHOW‑001｜V1.0
+>核心心法：带看不是领路，讲故事+消除疑虑+促成交。
+
+## 核心规则
+1.先问客人需求（商务、情侣、家庭、长住）
+2.一次最多带看2种房型，不给过多选择；
+3.进门先拉开窗帘，光线提升第一印象；
+4.邀请客人触摸床垫、体验淋浴；
+5.离开制造紧迫感：今天此房型仅剩最后一间。
+
+## 8步标准流程
+Step1：确认客人需求，选定最多2个房型；
+Step2：出发前检查：刷好楼层房卡，确认房间VC空净房，通知客房提前开灯开空调；
+Step3：走廊路上铺垫卖点（静音楼层、高层景观）；
+Step4：开门侧身让客人先进，立刻拉开窗帘，给3秒感受房间；
+Step5：房间导览顺序：景观→床品床垫→卫浴水压→灯光智能→配套设施→隔音；
+Step6：引导客人动手体验，不要单方面背书讲解；
+Step7：试探成交（二选一法、直接法、紧迫感话术）；
+Step8：成交带回前台办理入住；未成交加微信，保留房间到下午18点，24小时跟进。
+
+## 不同客群展示重点
+-商务客：书桌、WiFi网络、隔音；
+-情侣：大床、夜景氛围；
+-家庭：双床，空间卫浴；
+-老人：低楼层、防滑、安静。
+
+## 禁止红线
+❌不能带看脏房维修房；❌进门立刻报价格；❌同时带看超过3套房间；❌自己抢先进入客房。
+`},
+priceSale:{
+title:"泊愈酒店前厅报价留客流程方案",
+content:`
+# 泊愈酒店（南沙店）前厅部报价留客流程方案
+文件编号 PY‑NQ‑2026‑001｜V1.0｜2026‑08‑16
+底线规则：酒店房最低268，公寓房最低198；低于底价必须店长审批。
+
+## 五大核心原则
+1.从高到低报价：先报高价房型，逐步往下，给到客人获得感；
+2.先体验后报价：价格犹豫优先带看房；
+3.不主动直接打折；赠送早餐、延迟退房、升级房型做权益；
+4.美团上线后利用线上价格做第三方锚点；
+5.守住底价，无权限私自放低价。
+
+## 美团上线前流程
+推门市价 → 输出酒店卖点 →客人不满意则带看房 →升级景观房促成交；仍不满意降档小房间228，最后公寓房底价198，仍不接受上报值班经理。
+
+## 美团上线后流程
+第一步引导客人扫码美团大美卡；不满意推协议价；再不满意引导抖音下单；仍然不接受公寓房最低198；还不接受上报值班经理。
+
+## 重要注意事项
+1.报价顺序不可颠倒，禁止上来直接报底价。
+2.到店无预订客人，必须优先引导扫码。
+3.协议价必须签署纸质协议。
+4.198公寓房是硬性底线，员工无权私自降价。
+5.客人拒绝底价后呼叫值班经理，员工不要继续议价。
+`},
+wakeUp:{
+title:"前厅叫醒服务流程SOP",
+content:`
+# 叫醒服务SOP｜BOYU‑SOP‑FD‑003｜V1.0
+## 服务分类
+人工电话叫醒；上门敲门叫醒；多次时间叫醒。
+
+## 受理接收请求
+24小时受理；登记要素：房号、姓名、叫醒日期、时间、叫醒方式、特殊需求。
+受理后复述确认信息；PMS系统录入，纸质登记本同时记录。
+
+## 人工电话叫醒
+到时间拨客房电话，标准话术；两次拨打无人接听，立刻通知客房上门叫醒。
+
+## 上门叫醒操作
+1）第一次轻敲房门三下，报您好客房服务；等待10秒；
+2）二次敲门，报您好前台叫醒服务；
+3）无应答拨打客人登记手机号；全部无效上报值班经理。
+
+## 标准话术
+早上好X先生女士，这里泊愈酒店前台，现在早上XX点，您预约叫醒时间到，祝您旅途愉快。
+>客人要再睡5分钟：好的，我5分钟后再次叫醒，系统设置二次提醒。
+
+## 🔴红线严禁
+❌漏叫忘叫（会造成重大客诉）；❌大声叫醒打扰隔壁房间；❌泄露客人叫醒行程隐私；❌没有客人指令私自取消叫醒。
+
+## 交接班自查清单
+当班结束核对全部叫醒任务完成情况，纸质登记本记录，PMS清除过期任务，特殊VIP、时差客人做好交接备注。
+`},
+remindCheckout:{
+title:"前厅催退电话操作标准SOP",
+content:`
+# 前厅催退电话操作SOP
+核心三不原则：不卑不亢，不恶意催促，不私自承诺减免延时费。
+
+## 触发时间节点
+11:00 首次微信消息提醒退房；
+12:30 二次拨打电话提醒；
+14:00超时预警，正式告知延时计费。
+
+## 拨打电话前准备
+查看PMS订单，查看交班记录，识别客人类型：优质客人/普通客人/提防客人（有投诉史）。提防客人通话务必录音，全程留痕。
+
+## 标准通话开场白
+您好XX先生女士，我是泊愈酒店前台，温馨提醒，您房间XXX今日退房12点，确认您今天退房还是续住？
+
+## 客人不同反应处理
+1.客人一会下楼：备注，告知超时会收取延时费。
+2.客人需要续住：查询房量，确认续住价格，通知客房做续住卫生。
+3.客人情绪激动拒绝付费：不争执，立刻转接值班经理。
+
+## 异议话术对错
+客人：别的酒店不收延时费
+✅正确：每家酒店政策不一样，我们超时按照XX元每小时计费，请问您现在办理退房还是续住？
+❌错误：我们酒店就这规定。
+
+## 记录规范
+每次催退电话必须PMS订单备注通话时间和客人反馈；提防客人完整记录原话。延时费减免必须值班经理审批，前台无权私自免除。
+`},
+checkOut:{
+title:"前厅退房操作SOP手册",
+content:`
+# 前厅退房操作SOP｜金天鹅云PMS
+两大模块：PMS系统结账操作 + 对客服务话术
+
+## PMS退房步骤
+1.打开订单详情页，核对账务；
+2.点击结账退房；确认超时加收费用弹窗；
+3.核对消费、押金、应退金额，选择退款方式；
+4.确认结账退房，确认房态释放变为待打扫，避免超售。
+
+## 对客服务
+>优质客人（无投诉）
+核对客人身份，询问发票，问候入住体验，引导五星好评，赠送矿泉水送别。
+
+>提防客人（有过抱怨）
+核对信息，主动询问还有没有其他问题，诚恳道歉记录建议，下次入住可以免费升级，不强求好评。
+
+## 必须做到
+1.核对退房人身份，公安系统退登；
+2.查看交班记录，了解客人历史反馈；
+3.退房确认房态释放；
+4.主动询问发票需求。
+
+## 禁止行为
+禁止和客人争辩房间问题；禁止强行索要好评；禁止在客人面前吐槽系统。
+
+## 速查卡
+麻烦报下您名字帮核对退房；请问需要开具发票吗；昨晚住的还好吗；感谢入住，路上小心，欢迎再次光临。
+`},
+lostItem:{
+title:"前厅遗留物品处理SOP手册",
+content:`
+# 前厅遗留物品处理SOP手册｜V1.0
+三大原则：快速响应、如实告知、全程留痕。
+
+## 场景A：客人来电询问遗失物品
+1.接听电话，请客人提供房号、入住姓名；
+2.查询PMS+询问客房；
+3.找到物品，描述物品特征让客人确认；
+4.给客人两个选项：到店自取 /顺丰到付邮寄；
+5.登记遗留物品本，记录全部信息。
+
+>未找到物品话术：我这边查询暂时没有登记，我再安排客房重新排查，今天内给您回电。
+
+## 场景B：客房清扫发现遗留物
+1.客房通知前台；前台PMS备注；
+2.物品密封装袋标注房号、日期；存放保管柜；纸质登记本同步记录；
+3.主动致电客人告知物品；确认自取或邮寄。
+
+## 保管期限
+贵重物品手机现金珠宝：保管90天，到期移交派出所；
+普通衣物充电器30天；食品易腐物品24小时丢弃登记；证件银行卡保管60天。
+
+## 🔴红线
+❌严禁私自拆开客人物品；❌严禁私自占有遗留物品；❌未核实身份不能交给第三方朋友代领；❌不到保管期限不能擅自丢弃。
+`}
+};
+
+// ====================== 完整50道题库 单选30｜多选12｜判断8 ======================
+const examQuestions = [
+// 单选 1‑30
+{q:"1.接听酒店内部/外部电话，铃响要求几声内必须接起？",opts:["A、2声","B、3声","C、5声","D、没有要求"],ans:"B",tip:"三声原则，铃响三声内接听，超时需要先道歉"},
+{q:"2.泊愈酒店公寓房型最低可售底价是多少？",opts:["A、228元","B、198元","C、268元","D、208元"],ans:"B",tip:"公寓房底价198，普通客房底价268，低于底价需要店长审批"},
+{q:"3.带客实地看房，一次最多能带看几种房型？",opts:["A、1种","B、2种","C、3种","D、不限数量"],ans:"B",tip:"最多2种房型，选择过多会降低成交概率"},
+{q:"4.电话叫醒连续拨打2次客房无人接听，前台应当怎么做？",opts:["A、反复不停拨打电话","B、通知客房部上门叫醒","C、直接放弃不作记录","D、等待客人主动联系前台"],ans:"B",tip:"两次电话无人接听，必须安排客房上门叫醒保障客人"},
+{q:"5.催退电话首次提醒时间为？",opts:["A、10:00","B、11:00","C、12:30","D、14:00"],ans:"B",tip:"11点首次提醒；12:30二次电话；14点超时预警告知延时费"},
+{q:"6.办理入住，房间存在靠马路噪音大缺陷，前台应该？",opts:["A、不用说明，客人入住自己感受","B、办理入住主动如实告知客人确认","C、等客人投诉再解释","D、只跟熟客说明"],ans:"B",tip:"房间缺陷必须主动告知确认，隐瞒引发投诉将追责"},
+{q:"7.客人遗留易腐食品类物品，保管期限为？",opts:["A、7天","B、24小时","C、30天","D、90天"],ans:"B",tip:"食品易腐物品保管24小时，到期登记后丢弃"},
+{q:"8.报价留客流程应当遵守什么报价顺序？",opts:["A、一上来直接报最低价","B、从高到低逐步释放优惠权益","C、客人问多少钱就报多少钱","D、先降价再带客人看房"],ans:"B",tip:"坚持从高到低报价，给到客人获得优惠的心理感受"},
+{q:"9.预抵电话不需要确认以下哪一项信息？",opts:["A、预计到店时间","B、是否开车及停车需求","C、客人工资收入","D、楼层安静房间偏好"],ans:"C",tip:"预抵电话确认到店时间、停车、房间偏好，不询问客人隐私收入"},
+{q:"10.客人办理退房完成，系统最重要确认操作是？",opts:["A、直接关闭电脑","B、确认房态释放为空净房VC","C、打印全部历史单据","D、删除客人订单"],ans:"B",tip:"退房确认房态释放，防止出现超售问题"},
+{q:"11.外线来电找住店客人，前台正确操作？",opts:["A、直接告诉对方客人房号","B、帮客人转接，不透露房号信息","C、直接拒绝接听","D、直接把客人手机号告诉来电者"],ans:"B",tip:"保护住客隐私，只做转接，严禁泄露房号"},
+{q:"12.美团上线之后，无预订到店客人第一步操作？",opts:["A、直接报公寓底价198","B、引导客人扫码美团大美卡","C、直接带客人看房","D、推荐小房间228"],ans:"B",tip:"美团上线后，第一步引导扫码，线上价格做第三方价格锚点"},
+{q:"13.预抵电话针对远距离异地客人，最佳拨打时机？",opts:["A、入住当天早上","B、提前1天致电确认","C、客人到店之后再确认","D、不用打预抵电话"],ans:"B",tip:"远程异地客人，提前1天做预抵确认"},
+{q:"14.办理入住，公安系统要求对入住客人执行？",opts:["A、只登记一个人证件即可","B、全部入住人员实名登记证件信息","C、可以不登记证件","D、只登记手机号"],ans:"B",tip:"公安住宿登记，所有入住人员必须实名登记身份证件"},
+{q:"15.带客看房，进入客房第一个动作是？",opts:["A、直接报房间价格","B、拉开窗帘，侧身礼让客人先进房间","C、直接去看卫生间","D、自己率先走进房间"],ans:"B",tip:"开门侧身让客人先进，第一时间拉开窗帘提升房间观感"},
+{q:"16.泊愈普通酒店房型最低可售价格底线是？",opts:["A、198","B、228","C、268","D、288"],ans:"C",tip:"普通房型底价268元，公寓房底价198元，低于底价店长审批"},
+{q:"17.催退电话中，对于有投诉史的提防客人通话要求？",opts:["A、不需要任何记录","B、通话全程录音，PMS完整记录原话","C、简单口头记一下就行","D、只记录客人好评"],ans:"B",tip:"提防客人通话全程录音留痕，防范后续纠纷"},
+{q:"18.客人遗留贵重物品（手机、现金、珠宝）保管期限？",opts:["A、30天","B、60天","C、90天","D、7天"],ans:"C",tip:"贵重物品保管90天，到期上报移交派出所失物招领"},
+{q:"19.叫醒服务交接班，以下哪项不需要做？",opts:["A、核对全部叫醒任务是否执行完毕","B、登记未成功叫醒记录","C、直接删除全部纸质记录","D、特殊VIP客人做好交接备注"],ans:"C",tip:"纸质登记本不能随意删除销毁，需要归档留存"},
+{q:"20.退房时对待有过抱怨的提防客人，前台正确做法？",opts:["A、跟客人争辩说明酒店没有问题","B、诚恳道歉记录建议，不强求好评","C、直接拒绝办理退房","D、强制索要五星好评"],ans:"B",tip:"提防客人优先化解情绪，记录建议，不强行索要好评"},
+{q:"21.协议价客户，前台推荐协议价的时候，必须要？",opts:["A、口头答应即可，不用签文件","B、当面签署协议文件，明确价格有效期","C、微信随便说一下就行","D、不需要确认信息"],ans:"B",tip:"协议价必须签署纸质协议，避免后续价格纠纷"},
+{q:"22.客人咨询价格，前台正确咨询顺序？",opts:["A、直接报最低价","B、先询问入住日期，再从高到低报价","C、不询问日期直接报价","D、只报线上平台价格"],ans:"B",tip:"询价先确认入住日期，从高到低依次报价"},
+{q:"23.电话接听完毕，挂断电话要求？",opts:["A、直接“啪”摔话筒","B、等待来电客人先挂断，再轻放话筒","C、立刻和同事议论客人","D、客人没挂就直接切后台"],ans:"B",tip:"电话结束，等对方先挂断，轻放听筒，禁止摔话筒"},
+{q:"24.遗留证件、银行卡类物品，酒店保管期限？",opts:["A、24h","B、30天","C、60天","D、90天"],ans:"C",tip:"证件银行卡保管60天，到期上报移交派出所"},
+{q:"25.客人看房结束未当场成交，应该如何处理？",opts:["A、直接不理睬送客","B、添加客人微信，房间保留至18点，24小时跟进","C、拒绝留联系方式","D、让客人自己网上下单就完事"],ans:"B",tip:"看房未成交，留存联系方式，房间保留到18点，24小时跟进回访"},
+{q:"26.预抵电话核心确认三项不包含？",opts:["A、预计到店时间ETA","B、停车自驾需求","C、房间楼层安静偏好","D、客人家庭住址"],ans:"D",tip:"预抵电话确认到店、停车、房间需求，不询问家庭住址隐私"},
+{q:"27.14点之后客人还未退房，前台需要？",opts:["A、不用通知等待客人自己下来","B、超时预警，正式告知延时收费标准","C、直接免掉延时费","D、直接进房间收拾行李"],ans:"B",tip:"14点超时预警，正式告知延时计费标准"},
+{q:"28.办理入住，必须录入系统的客人信息是？",opts:["A、客人手机号","B、客人家庭详细住址","C、客人工作单位","D、客人收入情况"],ans:"A",tip:"办理入住必须留存客人手机号码录入PMS系统用于紧急联系"},
+{q:"29.报价留客，客人价格谈到底价198仍然不能接受，前台应当？",opts:["A、继续往下降价留住客人","B、上报值班经理到场处理","C、和客人争吵","D、直接赶走客人"],ans:"B",tip:"客人不接受底价，禁止私自降价，上报值班经理处理"},
+{q:"30.客房清扫发现客人遗留物品，第一步通知？",opts:["A、直接自己保管私存","B、第一时间通知前台，进行登记封存","C、直接丢弃物品","D、送给其他员工"],ans:"B",tip:"发现遗留物品第一时间通知前台登记封存，禁止私拿丢弃"},
+
+// 多选31‑42
+{q:"31.报价留客五大核心原则包含？",opts:["A、从高到低报价","B、先体验后报价，优先带看房","C、不主动直接打折，用权益替代降价","D、可以无底线放价留住客人"],ans:"ABC",tip:"禁止无底线放价，必须守住价格底线"},
+{q:"32.叫醒服务哪些行为属于红线禁止？",opts:["A、漏叫忘叫客人叫醒任务","B、大声叫醒打扰隔壁客房客人","C、泄露客人叫醒时间行程隐私","D、客人未要求取消，私自取消叫醒任务"],ans:"ABCD",tip:"全部都是叫醒服务红线，违反会造成严重客诉"},
+{q:"33.前厅电话接听七字口诀流程包含？",opts:["A、接、听","B、记、办","C、复、挂","D、存"],ans:"ABCD",tip:"完整流程：接→听→记→办→复→挂→存"},
+{q:"34.带客看房导览，需要向客人展示哪些重点？",opts:["A、窗外景观采光","B、床垫床品，邀请体验坐卧","C、卫浴水压热水速度","D、房间隔音效果"],ans:"ABCD",tip:"看房导览完整包含景观、床品、卫浴水压、隔音等卖点"},
+{q:"35.催退电话识别提防客人，包含哪些特征？",opts:["A、入住期间有过投诉抱怨记录","B、对价格敏感容易发生争执","C、差评历史记录","D、配合度差，容易情绪激动"],ans:"ABCD",tip:"以上全部属于提防客人，通话需要录音留痕"},
+{q:"36.办理退房PMS系统操作需要完成哪些步骤？",opts:["A、核对订单账务明细","B、点击结账退房确认费用","C、确认退款方式完成结账","D、确认房态释放为待打扫VC房"],ans:"ABCD",tip:"退房完整操作，全部选项都需要执行"},
+{q:"37.预抵电话通话需要确认哪些关键信息？",opts:["A、客人预计到店时间ETA","B、是否自驾、停车充电需求","C、床型楼层朝向安静偏好","D、老人孕妇等特殊人群需求"],ans:"ABCD",tip:"预抵电话全部以上信息都需要确认录入PMS"},
+{q:"38.遗留物品处理的三大原则？",opts:["A、快速响应处理客人查询","B、如实告知物品情况，不隐瞒","C、全部操作全程留痕登记","D、找到贵重物品可以私自保管"],ans:"ABC",tip:"严禁私自保管客人贵重遗留物品"},
+{q:"39.办理入住必须主动告知客人的信息有？",opts:["A、中午12点退房时间","B、WiFi密码","C、早餐时间地点","D、访客需要到前台登记身份证件"],ans:"ABCD",tip:"办理入住全部以上信息需要向客人告知清楚"},
+{q:"40.美团上线后报价留客流程包含下面哪些步骤？",opts:["A、引导扫码美团大美卡","B、不满意可推荐签署协议价","C、继续不满意引导抖音下单比价","D、仍不接受推公寓最低198元"],ans:"ABCD",tip:"美团上线后完整报价留客流程"},
+{q:"41.带客看房禁止哪些行为？",opts:["A、带客人看脏房、维修房","B、一次带看超过3种房型","C、进门第一时间直接报价格","D、自己抢先进入客房"],ans:"ABCD",tip:"全部都是看房SOP明确禁止行为"},
+{q:"42.前厅遗留物品处理红线，下面说法正确的是？",opts:["A、不可以私自拆开客人物品查看","B、遗留物品不能私自占为己有","C、未核实身份，不可以把物品交给客人朋友代领","D、保管期未满，不能擅自丢弃遗留物品"],ans:"ABCD",tip:"遗留物品全部红线，违者按酒店制度处罚"},
+
+// 判断 43‑50
+{q:"43.办理入住时，如果房间无窗户，不需要告诉客人，客人发现再说。【判断】",opts:["A、正确","B、错误"],ans:"B",tip:"错误，房间缺陷必须办理入住时主动告知客人确认，隐瞒会造成投诉"},
+{q:"44.带客看房，优先让客人体验房间实物，价格放在体验之后再说。【判断】",opts:["A、正确","B、错误"],ans:"A",tip:"正确，先体验后报价，降低客人价格敏感度"},
+{q:"45.公寓房198元底价，普通前台员工可以直接低于198元销售来留住客人。【判断】",opts:["A、正确","B、错误"],ans:"B",tip:"错误，低于底价必须店长审批，普通员工无权私自放价"},
+{q:"46.外线来电查询住店客人，可以直接把房号告诉来电人。【判断】",opts:["A、正确","B、错误"],ans:"B",tip:"错误，保护住客隐私，严禁泄露房号，只能做电话转接"},
+{q:"47.催退延时费，前台员工可以根据自己心情直接给客人免除延时费。【判断】",opts:["A、正确","B、错误"],ans:"B",tip:"错误，延时费减免必须值班经理审批，前台无权私自免除"},
+{q:"48.叫醒服务，如果两次电话打不通，必须通知客房上门叫醒。【判断】",opts:["A、正确","B、错误"],ans:"A",tip:"正确，保障客人叫醒，电话失效立刻上门叫醒"},
+{q:"49.客人退房完成，不需要看交班记录，直接操作结账即可。【判断】",opts:["A、正确","B、错误"],ans:"B",tip:"错误，退房前查看交班，了解客人历史反馈、投诉记录"},
+{q:"50.客房发现遗留食品，24小时后登记可以丢弃。【判断】",opts:["A、正确","B、错误"],ans:"A",tip:"正确，易腐食品保管期限24小时，到期登记丢弃"}
+];
+
+//页面切换
+const navBtns = document.querySelectorAll('.nav-btn');
+const pages = {
+    home:document.getElementById('page-home'),
+    sop:document.getElementById('page-sop'),
+    exam:document.getElementById('page-exam')
+};
+navBtns.forEach(btn=>{
+    btn.onclick = function(){
+        navBtns.forEach(b=>b.classList.remove('active'));
+        this.classList.add('active');
+        let target = this.dataset.target;
+        for(let k in pages){
+            pages[k].style.display = (k===target)?"block":"none";
+        }
+        if(target==='exam') renderExam();
+    }
+})
+//首页目录点击跳转SOP
+document.querySelectorAll('.link-item').forEach(el=>{
+    el.onclick = function(){
+        let sopKey = this.dataset.sop;
+        navBtns.forEach(b=>b.classList.remove('active'));
+        document.querySelector('[data-target="sop"]').classList.add('active');
+        for(let k in pages){
+            pages[k].style.display = (k==='sop')?"block":"none";
+        }
+        document.getElementById('sopSelect').value = sopKey;
+        renderSop();
+    }
+})
+
+function renderSop(){
+    let sel = document.getElementById('sopSelect').value;
+    let data = sopData[sel];
+    let dom = document.getElementById('sopRender');
+    dom.innerHTML = `<h3>${data.title}</h3><div>${mdToHtml(data.content)}</div>`;
+}
+
+function mdToHtml(text){
+    text = text.replace(/^# (.*?)$/gm,"<h3>$1</h3>");
+    text = text.replace(/^## (.*?)$/gm,"<h4>$1</h4>");
+    text = text.replace(/\n/g,"<br>");
+    return text;
+}
+
+function renderExam(){
+    let wrap = document.getElementById('examRender');
+    let html = "";
+    examQuestions.forEach((item,idx)=>{
+        html += `<div class="question-item">
+        <div class="q-title">${item.q}</div>`;
+        item.opts.forEach(o=>{
+            html += `<div class="opt-item">${o}</div>`;
+        })
+        html += `<button onclick="showAns(${idx})">显示答案</button>
+        <div class="answer-hint" id="ans${idx}">✅正确答案：${item.ans}｜解析：${item.tip}</div>
+        </div>`;
+    })
+    wrap.innerHTML = html;
+}
+function showAns(i){
+    document.getElementById("ans"+i).style.display = "block";
+}
+
+function exportSopPreview(){
+    let sel = document.getElementById('sopSelect').value;
+    let d = sopData[sel];
+    document.getElementById('previewText').innerText = d.title + "\n\n" + d.content;
+    document.getElementById('exportModal').style.display = 'flex';
+}
+function closeModal(){
+    document.getElementById('exportModal').style.display='none';
+}
+function copyPreview(){
+    let txt = document.getElementById('previewText').innerText;
+    navigator.clipboard.writeText(txt).then(()=>alert("复制成功，可以粘贴Word保存"));
+}
+function globalSearch(){
+    let kw = document.getElementById("searchInput").value.toLowerCase();
+}
+
+renderSop();
+</script>
+</body>
+</html>
